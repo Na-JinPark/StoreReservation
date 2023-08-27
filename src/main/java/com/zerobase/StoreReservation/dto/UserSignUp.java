@@ -1,13 +1,11 @@
 package com.zerobase.StoreReservation.dto;
 
 import com.zerobase.StoreReservation.type.UserType;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 
 
 public class UserSignUp {

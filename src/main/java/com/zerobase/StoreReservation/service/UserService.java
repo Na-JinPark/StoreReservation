@@ -9,7 +9,6 @@ import com.zerobase.StoreReservation.type.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 
 import static com.zerobase.StoreReservation.type.ErrorCode.REGISTERED_ID;
 import static com.zerobase.StoreReservation.type.ErrorCode.REGISTERED_NICKNAME;

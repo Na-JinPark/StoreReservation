@@ -1,5 +1,6 @@
 package com.zerobase.StoreReservation.domain;
 
+import com.zerobase.StoreReservation.domain.id.StoreId;
 import com.zerobase.StoreReservation.type.Status;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,12 +19,16 @@ import java.time.LocalTime;
 @Builder
 @Entity
 @Table(name = "store")
+@IdClass(StoreId.class)
 @EntityListeners(AuditingEntityListener.class)
 public class Store {
 
     @Id
-    private String userId;
+    @ManyToOne
+    private User userId;
+
     @Id
+    @GeneratedValue
     private BigInteger storeId;
 
     private String storeName;
