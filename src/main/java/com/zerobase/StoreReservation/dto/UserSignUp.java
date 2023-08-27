@@ -1,0 +1,41 @@
+package com.zerobase.StoreReservation.dto;
+
+import com.zerobase.StoreReservation.type.UserType;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Getter;
+
+import java.time.LocalDateTime;
+
+
+public class UserSignUp {
+    @Getter
+    public static class Request{
+        @NotEmpty
+        private String userId;
+        @NotEmpty
+        private String userPassword;
+        @NotNull
+        private UserType userType;
+        @NotEmpty
+        private String nickName;
+    }
+
+    @Getter
+    @Builder
+    public static class Response{
+        private String userId;
+        private String nickName;
+        private UserType userType;
+
+        public static Response from(UserDto userDto){
+            return Response.builder()
+                    .userId(userDto.getUserId())
+                    .nickName(userDto.getNickName())
+                    .userType(userDto.getUserType())
+                    .build();
+        }
+    }
+}
