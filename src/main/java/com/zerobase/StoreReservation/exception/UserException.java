@@ -4,7 +4,7 @@ import com.zerobase.StoreReservation.type.ErrorCode;
 import lombok.*;
 @Getter
 @Setter
-@AllArgsConstructor
+// @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class UserException extends RuntimeException{
@@ -14,5 +14,10 @@ public class UserException extends RuntimeException{
     public UserException(ErrorCode errorcode){
         this.errorCode = errorcode;
         this.errorMessage = errorCode.getDescription();
+    }
+
+    public UserException(ErrorCode errorcode, String errorMessage){
+        this.errorCode = errorcode;
+        this.errorMessage = errorMessage;
     }
 }

@@ -1,0 +1,9 @@
+### storeRegist
+POST http://localhost:8080/store
+Content-Type: application/json
+
+{
+  "storeId": 1111,
+  "storeName": "testStore",
+  "userId": "test1"
+}

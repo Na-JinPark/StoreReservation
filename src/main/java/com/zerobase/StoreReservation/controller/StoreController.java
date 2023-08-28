@@ -17,20 +17,6 @@ public class StoreController {
     public StoreRegist.Response StoreRegist(
             @RequestBody @Valid StoreRegist.Request request
     ){
-        /*return StoreRegist.Response.from(
-                StoreService.storeRegist(
-                        request.getUserId(),
-                        request.getStoreName(),
-                        request.getPhoneNumber(),
-                        request.getLocation(),
-                        request.getStartTime(),
-                        request.getEndTime(),
-                        request.getBreakTimeStatus(),
-                        request.getStartBreakTime(),
-                        request.getEndBreakTime(),
-                        request.getTimeSet()
-                )
-        );
-         return StoreRegist.Response.from(StoreService.storeRegist(request));*/
+        return StoreRegist.Response.from(storeService.storeRegist(request));
     }
 }

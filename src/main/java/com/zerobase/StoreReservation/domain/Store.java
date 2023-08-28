@@ -19,19 +19,17 @@ import java.time.LocalTime;
 @Builder
 @Entity
 @Table(name = "store")
-@IdClass(StoreId.class)
 @EntityListeners(AuditingEntityListener.class)
 public class Store {
-
     @Id
+    private Integer storeId;
+
     @ManyToOne
-    private User userId;
-
-    @Id
-    @GeneratedValue
-    private BigInteger storeId;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private String storeName;
+    private String remark;
     private String phoneNumber;
     private String location;
     private LocalTime startTime;

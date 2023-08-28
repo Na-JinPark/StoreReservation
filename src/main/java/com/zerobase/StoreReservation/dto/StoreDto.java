@@ -1,20 +1,19 @@
 package com.zerobase.StoreReservation.dto;
 
 import com.zerobase.StoreReservation.domain.Store;
-import com.zerobase.StoreReservation.domain.User;
 import com.zerobase.StoreReservation.type.Status;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.math.BigInteger;
 import java.time.LocalTime;
 
 @Getter
 @Builder
 public class StoreDto {
-    private User userId;
-    private BigInteger storeId;
+    private Integer storeId;
+    private String userId;
     private String storeName;
+    private String remark;
     private String phoneNumber;
     private String location;
     private LocalTime startTime;
@@ -26,8 +25,9 @@ public class StoreDto {
 
     public static StoreDto fromEntity(Store store){
         return StoreDto.builder()
-                .userId(store.getUserId())
                 .storeId(store.getStoreId())
+                .userId(store.getUser().getUserId())
+                .remark(store.getRemark())
                 .storeName(store.getStoreName())
                 .phoneNumber(store.getPhoneNumber())
                 .location(store.getLocation())
