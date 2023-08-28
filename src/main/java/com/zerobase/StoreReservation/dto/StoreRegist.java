@@ -1,14 +1,11 @@
 package com.zerobase.StoreReservation.dto;
 
-import com.zerobase.StoreReservation.domain.User;
 import com.zerobase.StoreReservation.type.Status;
-import com.zerobase.StoreReservation.type.UserType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.math.BigInteger;
 import java.time.LocalTime;
 
 public class StoreRegist {

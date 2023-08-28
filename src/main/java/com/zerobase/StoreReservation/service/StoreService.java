@@ -12,8 +12,6 @@ import com.zerobase.StoreReservation.type.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 import static com.zerobase.StoreReservation.type.ErrorCode.*;
 
 @Service

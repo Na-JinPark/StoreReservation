@@ -4,11 +4,9 @@ import com.zerobase.StoreReservation.domain.User;
 import com.zerobase.StoreReservation.dto.UserDto;
 import com.zerobase.StoreReservation.exception.UserException;
 import com.zerobase.StoreReservation.repository.UserRepository;
-import com.zerobase.StoreReservation.type.ErrorCode;
 import com.zerobase.StoreReservation.type.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 
 import static com.zerobase.StoreReservation.type.ErrorCode.REGISTERED_ID;
 import static com.zerobase.StoreReservation.type.ErrorCode.REGISTERED_NICKNAME;
