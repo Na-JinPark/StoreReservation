@@ -8,8 +8,7 @@ import com.zerobase.StoreReservation.type.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.zerobase.StoreReservation.type.ErrorCode.REGISTERED_ID;
-import static com.zerobase.StoreReservation.type.ErrorCode.REGISTERED_NICKNAME;
+import static com.zerobase.StoreReservation.type.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +37,13 @@ public class UserService {
         else if(userRepository.findByNickName(nickName).isPresent()){
             throw new UserException(REGISTERED_NICKNAME);
         }
+    }
+
+    public UserDto checkUserID(String userId){
+        User loginUser =  userRepository.findById(userId)
+                .orElseThrow(()->new UserException(UNREGISTERED_ID));
+
+        return UserDto.fromEntity(loginUser);
     }
 
 }

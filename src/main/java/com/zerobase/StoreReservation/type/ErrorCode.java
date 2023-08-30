@@ -6,6 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
+    LOGIN_CHECK("잘못된 ID 입니다."),
+    UNREGISTERED_ID("잘못된 ID 입니다."),
     REGISTERED_ID("현재 사용중인 ID 입니다."),
     REGISTERED_NICKNAME("현재 사용중인 닉네임 입니다."),
     REGISTERED_STOREID("현재 사용중인 사업자 등록번호 입니다."),
