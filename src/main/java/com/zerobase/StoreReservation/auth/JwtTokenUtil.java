@@ -1,15 +1,29 @@
 package com.zerobase.StoreReservation.auth;
 
+import com.zerobase.StoreReservation.domain.CustomUserDetails;
+import com.zerobase.StoreReservation.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class JwtTokenUtil {
 
+    // 로그인 성공 => Jwt Token 발급
+    private static final String secretKey = "storeReservationKey";
+    //long expireTimeMs = 1000 * 60 * 60;     // Token 유효 시간 = 60분
+    private static Long expireTimeMs = (long) (30 * 60 * 1000); // 30분 (밀리초 단위)
     // JWT Token 발급
-    public static String createToken(String loginId, String key, long expireTimeMs) {
+    public static String createToken(String loginId) {
         // Claim = Jwt Token에 들어갈 정보
         // Claim에 loginId를 넣어 줌으로써 나중에 loginId를 꺼낼 수 있음
         Claims claims = Jwts.claims();
@@ -19,24 +33,35 @@ public class JwtTokenUtil {
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expireTimeMs))
-                .signWith(SignatureAlgorithm.HS256, key)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
     // Claims에서 loginId 꺼내기
-    public static String getLoginId(String token, String secretKey) {
-        return extractClaims(token, secretKey).get("loginId").toString();
+    public static String getLoginId(String token) {
+        return extractClaims(token).get("loginId").toString();
     }
 
     // 밝급된 Token이 만료 시간이 지났는지 체크
-    public static boolean isExpired(String token, String secretKey) {
-        Date expiredDate = extractClaims(token, secretKey).getExpiration();
+    public static boolean isExpired(String token) {
+        Date expiredDate = extractClaims(token).getExpiration();
         // Token의 만료 날짜가 지금보다 이전인지 check
         return expiredDate.before(new Date());
     }
 
+    public static String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+
     // SecretKey를 사용해 Token Parsing
-    private static Claims extractClaims(String token, String secretKey) {
+    private static Claims extractClaims(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
+
+
 }

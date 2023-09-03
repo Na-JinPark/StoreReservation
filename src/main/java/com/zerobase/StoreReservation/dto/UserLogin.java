@@ -1,9 +1,10 @@
 package com.zerobase.StoreReservation.dto;
 
-import com.zerobase.StoreReservation.type.UserType;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

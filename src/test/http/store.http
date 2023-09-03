@@ -3,7 +3,14 @@ POST http://localhost:8080/store
 Content-Type: application/json
 
 {
-  "storeId": 1111,
-  "storeName": "testStore",
-  "userId": "test1"
+  "storeId": 1235,
+  "storeName": "testStore2",
+  "userId": "test1",
+  "location": "창원시",
+  "startTime": "12:00:00",
+  "endTime": "17:00:00",
+  "breakTimeStatus" : "Y",
+  "startBreakTime": "01:00:00",
+  "endBreakTime": "03:00:00",
+  "timeSet": "00:30:00"
 }

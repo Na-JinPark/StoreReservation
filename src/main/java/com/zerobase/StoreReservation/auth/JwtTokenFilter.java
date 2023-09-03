@@ -1,16 +1,25 @@
 package com.zerobase.StoreReservation.auth;
 
+import com.zerobase.StoreReservation.domain.CustomUserDetails;
 import com.zerobase.StoreReservation.domain.User;
 import com.zerobase.StoreReservation.dto.UserDto;
 import com.zerobase.StoreReservation.exception.UserException;
 import com.zerobase.StoreReservation.repository.UserRepository;
 import com.zerobase.StoreReservation.service.UserService;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,16 +28,38 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static com.zerobase.StoreReservation.type.ErrorCode.UNREGISTERED_ID;
 
-// OncePerRequestFilter : 매번 들어갈 때 마다 체크 해주는 필터
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final UserService userService;
-    private final String secretKey;
 
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String token = JwtTokenUtil.resolveToken(request);
+
+        try{
+            if (token != null && JwtTokenUtil.isExpired(token)) {
+                String userId = JwtTokenUtil.getLoginId(token);
+
+                User user = userService.checkUserID(userId);
+                CustomUserDetails userDetails = CustomUserDetails.build(user);
+
+                Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        }catch (JwtException e) {
+            // 유효 기간이 만료된 토큰 또는 잘못된 토큰 처리
+            SecurityContextHolder.clearContext();
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
+    /*
     @Override
     protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, jakarta.servlet.FilterChain filterChain) throws jakarta.servlet.ServletException, IOException {
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
@@ -86,5 +117,5 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         // 권한 부여
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         filterChain.doFilter(request, response);
-    }
+    }*/
 }

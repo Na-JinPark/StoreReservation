@@ -14,7 +14,7 @@ public class StoreController {
     private final StoreService storeService;
 
     @PostMapping("/store")
-    public StoreRegist.Response StoreRegist(
+    public StoreRegist.Response storeRegist(
             @RequestBody @Valid StoreRegist.Request request
     ){
         return StoreRegist.Response.from(storeService.storeRegist(request));

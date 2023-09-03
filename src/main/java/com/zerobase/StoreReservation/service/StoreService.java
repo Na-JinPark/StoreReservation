@@ -6,7 +6,6 @@ import com.zerobase.StoreReservation.dto.StoreDto;
 import com.zerobase.StoreReservation.dto.StoreRegist;
 import com.zerobase.StoreReservation.exception.UserException;
 import com.zerobase.StoreReservation.repository.StoreRepository;
-import com.zerobase.StoreReservation.repository.UserRepository;
 import com.zerobase.StoreReservation.type.Status;
 import com.zerobase.StoreReservation.type.UserType;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ import static com.zerobase.StoreReservation.type.ErrorCode.*;
 @RequiredArgsConstructor
 public class StoreService {
     private final StoreRepository storeRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     public StoreDto storeRegist(StoreRegist.Request request){
         User user =  checkUserType(request.getUserId());
@@ -44,7 +43,7 @@ public class StoreService {
 
     private void validationStoreRegist(Store store){
         if(storeRepository.findByStoreId(store.getStoreId()).isPresent()){
-            throw new UserException(REGISTERED_STOREID);
+            throw new UserException(REGISTERED_STORE_ID);
         }
         else if(store.getBreakTimeStatus().equals(Status.Y)){
             if(store.getStartBreakTime()== null || store.getEndBreakTime()== null){
@@ -54,7 +53,7 @@ public class StoreService {
     }
 
     private User checkUserType(String userId){
-        User user =  userRepository.findByUserId(userId).get();
+        User user =  userService.checkUserID(userId);
         if(user.getUserType().equals(UserType.GENERAL)){
             throw new UserException(NOT_MANAGER_USER);
         }
