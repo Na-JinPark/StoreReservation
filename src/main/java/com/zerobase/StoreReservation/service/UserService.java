@@ -18,7 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     //회원 가입
-    public UserDto userSignUp(String userId, String userPassword, UserType userType, String nickName){
+    public UserDto userSignUp(String userId, String userPassword, UserType userType, String nickName, String phoneNumber){
 
         validationUserSignUp(userId, nickName);
 
@@ -28,12 +28,16 @@ public class UserService {
                         .userPassword(userPassword)
                         .userType(userType)
                         .nickName(nickName)
+                        .phoneNumber(phoneNumber)
                         .build())
         );
     }
 
+    /*
+    * 회원 가입 전 사용중인 아이디와 닉네임인지 확인
+    */
     private void validationUserSignUp(String userId, String nickName){
-        if(userRepository.findByUserId(userId).isPresent()){
+        if(userRepository.findById(userId).isPresent()){
             throw new UserException(REGISTERED_ID);
         }
         else if(userRepository.findByNickName(nickName).isPresent()){

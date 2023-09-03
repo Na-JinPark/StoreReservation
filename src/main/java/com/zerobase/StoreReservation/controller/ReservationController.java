@@ -1,5 +1,6 @@
 package com.zerobase.StoreReservation.controller;
 
+import com.zerobase.StoreReservation.dto.ReservationInfo;
 import com.zerobase.StoreReservation.dto.ReservationList;
 import com.zerobase.StoreReservation.dto.ReservationRegist;
 import com.zerobase.StoreReservation.dto.ReservationStatus;
@@ -43,6 +44,17 @@ public class ReservationController {
         );
     }
 
+    @PostMapping("/reservation/refuse")
+    public ReservationStatus.Response reservationRefuse(
+            @RequestBody @Valid ReservationStatus.Request request
+    ){
+        return ReservationStatus.Response.from(
+                reservationService.reservationRefuse(
+                        request.getReservationId()
+                )
+        );
+    }
+
     @PostMapping("/reservation/arrived")
     public ReservationStatus.Response reservationArrived(
             @RequestBody @Valid ReservationStatus.Request request
@@ -61,5 +73,6 @@ public class ReservationController {
     ){
         return reservationService.getReservationList(reservationDate, storeId);
     }
+
 
 }

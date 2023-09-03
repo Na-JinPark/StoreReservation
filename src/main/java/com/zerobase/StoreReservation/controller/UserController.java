@@ -30,7 +30,8 @@ public class UserController {
                         request.getUserId(),
                         request.getUserPassword(),
                         request.getUserType(),
-                        request.getNickName()
+                        request.getNickName(),
+                        request.getPhoneNumber()
                 )
         );
     }

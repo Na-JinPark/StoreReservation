@@ -16,6 +16,8 @@ public enum ErrorCode {
     REGISTERED_STORE_ID("현재 사용중인 사업자 등록번호 입니다."),
     REQUIRED_INPUT("입력이 필요합니다."),
     NOT_MANAGER_USER("파트너 회원이 아닙니다."),
+    UNREGISTERED_RESERVATION_REVIEW("리뷰는 한번만 쓸 수 있습니다."),
+    UNUSED_RESERVATION("리뷰는 예약시간 기준 10분 이후 부터 작성할 수 있습니다.")
     ;
 
     private final String description;

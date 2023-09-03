@@ -13,20 +13,20 @@ public class ReviewRegist {
     public static class Request{
         @NotNull
         private Integer reservationId;
+        @NotNull
+        private Integer grade;
+        @NotNull
+        private String remark;
     }
 
     @Getter
     @Builder
     public static class Response{
-        private String nickname;
-        private LocalDate reservationDate;
-        private LocalTime reservationTime;
         private Integer grade;
         private String remark;
 
-        public static Response from(ReviewDto reviewDto, String nickname) {
+        public static Response from(ReviewDto reviewDto) {
             return Response.builder()
-                    .nickname(nickname)
                     .grade(reviewDto.getGrade())
                     .remark(reviewDto.getRemark())
                     .build();

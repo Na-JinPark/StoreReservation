@@ -27,6 +27,7 @@ public class User {
     private UserType userType;
 
     private String nickName;
+    private String phoneNumber;
 
     @CreatedDate
     private LocalDateTime createdTime;

@@ -43,7 +43,7 @@ public class ReservationService {
         // JWT 토큰에서 사용자 ID 추출
         String userId = JwtTokenUtil.getLoginId(jwtToken);
 
-        User user = userRepository.findByUserId(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserException(UNREGISTERED_ID));
 
         Store store = storeRepository.findByStoreId(storeID)
@@ -56,7 +56,6 @@ public class ReservationService {
                                 .reservationTime(reservationTime)
                                 .store(store)
                                 .user(user)
-                                .reservationStatus(Status.N)
                                 .arrivedStatus(Status.N)
                         .build())
         );
@@ -64,8 +63,7 @@ public class ReservationService {
 
     public ReservationDto reservationConfirm(Integer reservationId){
 
-        Reservation reservation = reservationRepository.findById(reservationId)
-                                                .orElseThrow(()-> new UserException(UNREGISTERED_RESERVATION));
+        Reservation reservation = reservationCheck(reservationId);
 
         reservation.setReservationStatus(Status.Y);
 
@@ -74,15 +72,37 @@ public class ReservationService {
         );
     }
 
+    public ReservationDto reservationRefuse(Integer reservationId){
+
+        Reservation reservation = reservationCheck(reservationId);
+
+        reservation.setReservationStatus(Status.N);
+
+        return  ReservationDto.fromEntity(
+                reservationRepository.save(reservation)
+        );
+    }
+
     public ReservationDto reservationArrived(Integer reservationId){
 
-        Reservation reservation =  reservationRepository.findById(reservationId)
-                .orElseThrow(()-> new UserException(UNREGISTERED_RESERVATION));
+        Reservation reservation = reservationCheck(reservationId);
 
         reservation.setArrivedStatus(Status.Y);
 
         return  ReservationDto.fromEntity(
                 reservationRepository.save(reservation)
         );
+    }
+
+    public Reservation reservationInfo(Integer reservationId){
+        Reservation reservation = reservationCheck(reservationId);
+        return  reservation;
+    }
+
+    private Reservation reservationCheck(Integer reservationId){
+        Reservation reservation =  reservationRepository.findById(reservationId)
+                .orElseThrow(()-> new UserException(UNREGISTERED_RESERVATION));
+
+        return reservation;
     }
 }

@@ -12,6 +12,7 @@ public class UserDto {
     private String userPassword;
     private UserType userType;
     private String nickName;
+    private String phoneNumber;
 
     public static UserDto fromEntity(User user){
         return UserDto.builder()
@@ -19,6 +20,7 @@ public class UserDto {
                 .userPassword(user.getUserPassword())
                 .userType(user.getUserType())
                 .nickName(user.getNickName())
+                .phoneNumber(user.getPhoneNumber())
                 .build();
     }
 
