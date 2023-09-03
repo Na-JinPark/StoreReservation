@@ -7,7 +7,6 @@ import com.zerobase.StoreReservation.dto.UserDto;
 import com.zerobase.StoreReservation.exception.UserException;
 import com.zerobase.StoreReservation.repository.UserRepository;
 import com.zerobase.StoreReservation.type.UserType;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -57,5 +56,6 @@ public class UserService {
         User loginUser =  userRepository.findById(userId)
                 .orElseThrow(()->new UserException(UNREGISTERED_ID));
         return loginUser;
+
     }
 }

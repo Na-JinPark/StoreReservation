@@ -1,20 +1,11 @@
 package com.zerobase.StoreReservation.auth;
 
-import com.zerobase.StoreReservation.domain.CustomUserDetails;
-import com.zerobase.StoreReservation.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class JwtTokenUtil {
 

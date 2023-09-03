@@ -1,7 +1,8 @@
 package com.zerobase.StoreReservation.controller;
 
-import com.zerobase.StoreReservation.domain.Reservation;
-import com.zerobase.StoreReservation.dto.*;
+import com.zerobase.StoreReservation.dto.ReservationList;
+import com.zerobase.StoreReservation.dto.ReservationRegist;
+import com.zerobase.StoreReservation.dto.ReservationStatus;
 import com.zerobase.StoreReservation.service.ReservationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -32,14 +33,23 @@ public class ReservationController {
     }
 
     @PostMapping("/reservation/confirm")
-    public ReservationStatus.Response reservationStatus(
+    public ReservationStatus.Response reservationConfirm(
             @RequestBody @Valid ReservationStatus.Request request
     ){
         return ReservationStatus.Response.from(
-                reservationService.reservationStatus(
-                        request.getReservationDate(),
-                        request.getReservationTime(),
-                        request.getStoreId()
+                reservationService.reservationConfirm(
+                        request.getReservationId()
+                )
+        );
+    }
+
+    @PostMapping("/reservation/arrived")
+    public ReservationStatus.Response reservationArrived(
+            @RequestBody @Valid ReservationStatus.Request request
+    ){
+        return ReservationStatus.Response.from(
+                reservationService.reservationArrived(
+                        request.getReservationId()
                 )
         );
     }

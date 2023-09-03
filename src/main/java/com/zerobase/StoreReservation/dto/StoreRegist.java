@@ -20,7 +20,9 @@ public class StoreRegist {
         private String remark;
         private String phoneNumber;
         private String location;
+        @NotNull
         private LocalTime startTime;
+        @NotNull
         private LocalTime endTime;
         private Status breakTimeStatus = Status.N;
         private LocalTime startBreakTime;

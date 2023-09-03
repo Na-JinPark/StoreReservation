@@ -1,15 +1,12 @@
 package com.zerobase.StoreReservation.domain;
 
-import com.zerobase.StoreReservation.type.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -17,33 +14,22 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "reservation")
+@Table(name = "review")
 @EntityListeners(AuditingEntityListener.class)
-public class Reservation {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reservationId;
+    private Integer review_id;
 
-    private LocalDate reservationDate;
-    private LocalTime reservationTime;
+    @OneToOne
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
 
-    @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @Enumerated(EnumType.STRING)
-    private Status reservationStatus;
-
-    @Enumerated(EnumType.STRING)
-    private Status arrivedStatus;
+    private Integer grade;
+    private String remark;
 
     @CreatedDate
     private LocalDateTime createdTime;
     @LastModifiedDate
     private LocalDateTime updatedTime;
-
 }

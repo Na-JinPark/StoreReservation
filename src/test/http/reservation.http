@@ -1,3 +1,14 @@
 ### get reservationList
 GET http://localhost:8080/reservation/list?store_id=1235&reservation_date=2023-09-03
 Accept: application/json
+
+### reservationStatus
+POST http://localhost:8080/reservation/confirm
+Content-Type: application/json
+
+{
+  "reservationDate" : "2023-09-03",
+  "reservationTime" :"12:00:00",
+  "storeId" : "1235",
+  "userId":"test1"
+}

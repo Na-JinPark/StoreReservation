@@ -1,9 +1,7 @@
 package com.zerobase.StoreReservation.repository;
 
 import com.zerobase.StoreReservation.domain.Reservation;
-import com.zerobase.StoreReservation.domain.id.ReservationId;
 import com.zerobase.StoreReservation.dto.ReservationList;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, ReservationId> {
+public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
     @Query(value = "WITH RECURSIVE temp AS ( " +
             "    SELECT start_time AS reservation_time, store_id, break_time_status, start_break_time, end_break_time " +
             "    FROM store " +
@@ -35,5 +33,4 @@ public interface ReservationRepository extends JpaRepository<Reservation, Reserv
     List<ReservationList> getReservationList(@Param("storeId") Integer storeId, @Param("reservationDate") LocalDate reservationDate);
 
     Optional<Reservation> findByReservationDateAndReservationTimeAndUser_UserIdAndStore_StoreId(LocalDate reservationDate, LocalTime reservationTime, String userId, Integer storeId);
-    //Optional<Reservation> findByIdAndUserIdAndStoreId(ReservationId id, String Userid, Integer StoreId);
 }

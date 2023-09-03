@@ -1,20 +1,19 @@
 package com.zerobase.StoreReservation.service;
 
-import com.zerobase.StoreReservation.domain.CustomUserDetails;
+import com.zerobase.StoreReservation.auth.JwtTokenUtil;
 import com.zerobase.StoreReservation.domain.Reservation;
 import com.zerobase.StoreReservation.domain.Store;
 import com.zerobase.StoreReservation.domain.User;
-import com.zerobase.StoreReservation.domain.id.ReservationId;
-import com.zerobase.StoreReservation.dto.*;
+import com.zerobase.StoreReservation.dto.ReservationDto;
+import com.zerobase.StoreReservation.dto.ReservationList;
 import com.zerobase.StoreReservation.exception.UserException;
 import com.zerobase.StoreReservation.repository.ReservationRepository;
 import com.zerobase.StoreReservation.repository.StoreRepository;
 import com.zerobase.StoreReservation.repository.UserRepository;
-import com.zerobase.StoreReservation.auth.JwtTokenUtil;
 import com.zerobase.StoreReservation.type.Status;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -63,22 +62,27 @@ public class ReservationService {
         );
     }
 
-    public ReservationDto reservationStatus(LocalDate reservationDate, LocalTime reservationTime, Integer storeId){
-        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public ReservationDto reservationConfirm(Integer reservationId){
 
-        String userId = userDetails.getUsername();
+        Reservation reservation = reservationRepository.findById(reservationId)
+                                                .orElseThrow(()-> new UserException(UNREGISTERED_RESERVATION));
 
-        ReservationId id = new ReservationId(reservationDate, reservationTime);
+        reservation.setReservationStatus(Status.Y);
 
-        Optional<Reservation> reservation = reservationRepository.findByReservationDateAndReservationTimeAndUser_UserIdAndStore_StoreId(reservationDate, reservationTime, userId,storeId);
-       // Reservation reservation = reservationRepository.findByReservationDateAndReservationTimeAndStoreIdAndUserId(reservationDate, reservationTime, userId, storeId)
-         //       .orElseThrow(() -> new UserException(UNREGISTERED_RESERVATION));
+       return  ReservationDto.fromEntity(
+                reservationRepository.save(reservation)
+        );
+    }
 
-        /*reservation.setReservationStatus(Status.Y);
+    public ReservationDto reservationArrived(Integer reservationId){
+
+        Reservation reservation =  reservationRepository.findById(reservationId)
+                .orElseThrow(()-> new UserException(UNREGISTERED_RESERVATION));
+
+        reservation.setArrivedStatus(Status.Y);
 
         return  ReservationDto.fromEntity(
                 reservationRepository.save(reservation)
-        );*/
-        return  null;
+        );
     }
 }

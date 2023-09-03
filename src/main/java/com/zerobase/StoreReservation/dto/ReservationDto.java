@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @Getter
 @Builder
 public class ReservationDto {
+    private Integer reservationId;
     private LocalDate reservationDate;
     private LocalTime reservationTime;
     private Integer storeId;
@@ -20,6 +21,7 @@ public class ReservationDto {
 
     public static ReservationDto fromEntity(Reservation reservation){
         return ReservationDto.builder()
+                .reservationId(reservation.getReservationId())
                 .reservationDate(reservation.getReservationDate())
                 .reservationTime(reservation.getReservationTime())
                 .storeId(reservation.getStore().getStoreId())

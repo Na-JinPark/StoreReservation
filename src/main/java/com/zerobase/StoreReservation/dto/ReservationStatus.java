@@ -12,13 +12,7 @@ public class ReservationStatus {
     @Getter
     public static class Request{
         @NotNull
-        private LocalDate reservationDate;
-        @NotNull
-        private LocalTime reservationTime;
-        @NotNull
-        private Integer storeId;
-        @NotNull
-        private String userId;
+        private Integer reservationId;
 
     }
 
