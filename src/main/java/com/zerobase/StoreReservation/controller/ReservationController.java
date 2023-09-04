@@ -18,6 +18,11 @@ import java.util.List;
 public class ReservationController {
     private final ReservationService reservationService;
 
+    /*
+     * 예약등록 api
+     * 파라미터 : 예약일자, 예약시간, 매장아이디
+     * 성공응답 : 예약일자, 예약시간, 매장아이디, 사용자 아이디
+     */
     @PostMapping("/reservation")
     public ReservationRegist.Response reservationRegist(
             @RequestBody @Valid ReservationRegist.Request request,
@@ -33,6 +38,11 @@ public class ReservationController {
         );
     }
 
+    /*
+     * 예약확인 api
+     * 파라미터 : 예약번호
+     * 성공응답 : 예약일자, 예약시간, 매장아이디, 사용자 아이디, 예약상태, 도착상태
+     */
     @PostMapping("/reservation/confirm")
     public ReservationStatus.Response reservationConfirm(
             @RequestBody @Valid ReservationStatus.Request request
@@ -44,6 +54,11 @@ public class ReservationController {
         );
     }
 
+    /*
+     * 예약거절 api
+     * 파라미터 : 예약번호
+     * 성공응답 : 예약일자, 예약시간, 매장아이디, 사용자 아이디, 예약상태, 도착상태
+     */
     @PostMapping("/reservation/refuse")
     public ReservationStatus.Response reservationRefuse(
             @RequestBody @Valid ReservationStatus.Request request
@@ -55,6 +70,11 @@ public class ReservationController {
         );
     }
 
+    /*
+     * 도착확인 api
+     * 파라미터 : 예약번호
+     * 성공응답 : 예약일자, 예약시간, 매장아이디, 사용자 아이디, 예약상태, 도착상태
+     */
     @PostMapping("/reservation/arrived")
     public ReservationStatus.Response reservationArrived(
             @RequestBody @Valid ReservationStatus.Request request
@@ -66,6 +86,11 @@ public class ReservationController {
         );
     }
 
+    /*
+     * 예약가능 시간 조회 api
+     * 파라미터 : 예약일자, 매장아이디
+     * 성공응답 : 예약가능시간
+     */
     @GetMapping("/reservation/list")
     public List<ReservationList> getReservationList(
             @RequestParam("reservation_date") LocalDate reservationDate,

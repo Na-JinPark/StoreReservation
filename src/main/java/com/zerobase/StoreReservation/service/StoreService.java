@@ -9,7 +9,12 @@ import com.zerobase.StoreReservation.repository.StoreRepository;
 import com.zerobase.StoreReservation.type.Status;
 import com.zerobase.StoreReservation.type.UserType;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.apache.bcel.generic.RET;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.zerobase.StoreReservation.type.ErrorCode.*;
 
@@ -19,6 +24,14 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final UserService userService;
 
+    /*
+     * 매장등록
+     * 파라미터 : 필수 -> 매장아이디, 사용자아이디, 매장이름, 영업시작시간, 종료시간, timeSet
+     *          그 외 -> 설명, 전화번호, 위치, 브레이크 타임여부, 브레이크타임 시작시간, 종료시간
+     * 정책 : 매장 아이디가 중복일 경우,
+     *       사용자가 파트너 회원이 아닐 경우
+     *       브레이크 타임여부 = 'Y' 일 때 브레이크 타임 시작시간 및 종료시간을 입력하지 않았을 경우 실패
+     */
     public StoreDto storeRegist(StoreRegist.Request request){
         User user =  checkUserType(request.getUserId());
 
@@ -41,6 +54,10 @@ public class StoreService {
         return  StoreDto.fromEntity(storeRepository.save(store));
     }
 
+    /*
+     * 매장 아이디가 중복인지 확인
+     * 브레이크 타임여부 = 'Y' 일 경우 브레이크 타임 시작 시간 및 종료시간 입력 확인
+     */
     private void validationStoreRegist(Store store){
         if(storeRepository.findByStoreId(store.getStoreId()).isPresent()){
             throw new UserException(REGISTERED_STORE_ID);
@@ -52,12 +69,38 @@ public class StoreService {
         }
     }
 
+    // 사용자가 파트너 회원인지 확인
     private User checkUserType(String userId){
-        User user =  userService.checkUserID(userId);
+        User user =  userService.checkUserId(userId);
         if(user.getUserType().equals(UserType.GENERAL)){
             throw new UserException(NOT_MANAGER_USER);
         }
         return user;
     }
 
+    /*
+     * 매장 목록 조회
+     */
+    public List<StoreDto> getStoreList(){
+        Sort sort = Sort.by(
+                Sort.Order.asc("storeName"), // store_name를 가나다라 순으로 오름차순 정렬
+                Sort.Order.desc("aevrageGrade") // average_grade를 내림차순 정렬
+        );
+        List<Store> stores = storeRepository.findAll(sort);
+
+        return stores.stream()
+                .map(StoreDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public StoreDto getStoreInfo(Integer storeId){
+        Store store = storeCheck(storeId);
+        return StoreDto.fromEntity(store);
+    }
+
+    public Store storeCheck(Integer storeId){
+        Store store = storeRepository.findByStoreId(storeId)
+                .orElseThrow(()->new UserException(UNREGISTERED_STORE_ID));
+        return store;
+    }
 }

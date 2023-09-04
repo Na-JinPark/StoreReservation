@@ -2,6 +2,7 @@ package com.zerobase.StoreReservation.domain;
 
 import com.zerobase.StoreReservation.type.Status;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -30,6 +31,7 @@ public class Store {
     private String remark;
     private String phoneNumber;
     private String location;
+    private Integer average_grade;
     private LocalTime startTime;
     private LocalTime endTime;
 

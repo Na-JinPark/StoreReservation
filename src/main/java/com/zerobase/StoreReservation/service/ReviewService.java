@@ -23,6 +23,13 @@ import static com.zerobase.StoreReservation.type.ErrorCode.*;
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ReservationService reservationService;
+
+    /*
+     * 리뷰등록 api
+     * 파라미터 : 예약번호, 평점, 리뷰
+     * 정책 : 예약번호 하나당 리뷰 하나 등록 가능
+     *       예약시간 10분 이후 부터 리뷰 등록 가능
+     */
     public ReviewDto reviewRegist(Integer reservationId, Integer grade, String remark){
 
         if(reviewRepository.findByReservation_ReservationId(reservationId).isPresent()){

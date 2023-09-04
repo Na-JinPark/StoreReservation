@@ -17,7 +17,9 @@ public enum ErrorCode {
     REQUIRED_INPUT("입력이 필요합니다."),
     NOT_MANAGER_USER("파트너 회원이 아닙니다."),
     UNREGISTERED_RESERVATION_REVIEW("리뷰는 한번만 쓸 수 있습니다."),
-    UNUSED_RESERVATION("리뷰는 예약시간 기준 10분 이후 부터 작성할 수 있습니다.")
+    UNUSED_RESERVATION("리뷰는 예약시간 기준 10분 이후 부터 작성할 수 있습니다."),
+    PULL_RESERVATION("예약 가능한 시간이 없습니다."),
+    ALREADY_REGISTERED_RESERVATION("이미 등록된 예약 시간 입니다."),
     ;
 
     private final String description;

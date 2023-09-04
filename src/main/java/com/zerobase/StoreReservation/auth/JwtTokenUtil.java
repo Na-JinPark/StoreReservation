@@ -9,9 +9,7 @@ import java.util.Date;
 
 public class JwtTokenUtil {
 
-    // 로그인 성공 => Jwt Token 발급
     private static final String secretKey = "storeReservationKey";
-    //long expireTimeMs = 1000 * 60 * 60;     // Token 유효 시간 = 60분
     private static Long expireTimeMs = (long) (30 * 60 * 1000); // 30분 (밀리초 단위)
     // JWT Token 발급
     public static String createToken(String loginId) {

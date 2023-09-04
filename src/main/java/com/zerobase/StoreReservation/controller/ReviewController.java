@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService reviewService;
+
+    /*
+     * 리뷰등록 api
+     * 파라미터 : 예약번호, 평점, 리뷰
+     * 성공응답 : 평점, 리뷰
+     */
     @PostMapping("/review")
     public ReviewRegist.Response reviewRegist(
             @RequestBody @Valid ReviewRegist.Request request

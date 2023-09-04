@@ -16,6 +16,7 @@ public class StoreDto {
     private String remark;
     private String phoneNumber;
     private String location;
+    private Integer average_grade;
     private LocalTime startTime;
     private LocalTime endTime;
     private Status breakTimeStatus;
@@ -31,6 +32,7 @@ public class StoreDto {
                 .storeName(store.getStoreName())
                 .phoneNumber(store.getPhoneNumber())
                 .location(store.getLocation())
+                .average_grade(store.getAverage_grade())
                 .startTime(store.getStartTime())
                 .endTime(store.getEndTime())
                 .breakTimeStatus(store.getBreakTimeStatus())
