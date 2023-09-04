@@ -3,9 +3,9 @@ POST http://localhost:8080/store
 Content-Type: application/json
 
 {
-  "storeId": 1235,
+  "storeId": 1236,
   "storeName": "testStore2",
-  "userId": "test1",
+  "userId": "test",
   "location": "창원시",
   "startTime": "12:00:00",
   "endTime": "17:00:00",

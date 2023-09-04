@@ -43,7 +43,7 @@ public class StoreController {
                                 .remark(storeDto.getRemark())
                                 .phoneNumber(storeDto.getPhoneNumber())
                                 .location(storeDto.getLocation())
-                                .average_grade(storeDto.getAverage_grade())
+                                .average_grade(storeDto.getAverageGrade())
                                 .businesTime(storeDto.getStartTime().format(formatter) + "~" + storeDto.getEndTime().format(formatter))
                                 .breakTime(storeDto.getStartBreakTime().format(formatter) + "~" + storeDto.getEndBreakTime().format(formatter))
                                 .build())
@@ -66,7 +66,7 @@ public class StoreController {
                 .remark(storeDto.getRemark())
                 .phoneNumber(storeDto.getPhoneNumber())
                 .location(storeDto.getLocation())
-                .average_grade(storeDto.getAverage_grade())
+                .average_grade(storeDto.getAverageGrade())
                 .businesTime(storeDto.getStartTime().format(formatter) + "~" + storeDto.getEndTime().format(formatter))
                 .breakTime(storeDto.getStartBreakTime().format(formatter) + "~" + storeDto.getEndBreakTime().format(formatter))
                 .build();

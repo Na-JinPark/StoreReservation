@@ -30,7 +30,7 @@ public class Store {
     private String remark;
     private String phoneNumber;
     private String location;
-    private Integer average_grade;
+    private Integer averageGrade;
     private LocalTime startTime;
     private LocalTime endTime;
 
