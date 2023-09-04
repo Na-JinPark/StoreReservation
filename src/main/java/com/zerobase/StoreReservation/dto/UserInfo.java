@@ -1,6 +1,5 @@
 package com.zerobase.StoreReservation.dto;
 
-import com.zerobase.StoreReservation.type.UserType;
 import lombok.*;
 
 @Builder

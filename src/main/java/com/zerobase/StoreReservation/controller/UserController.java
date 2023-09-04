@@ -1,8 +1,10 @@
 package com.zerobase.StoreReservation.controller;
 
 import com.zerobase.StoreReservation.auth.JwtTokenUtil;
-import com.zerobase.StoreReservation.domain.User;
-import com.zerobase.StoreReservation.dto.*;
+import com.zerobase.StoreReservation.dto.UserDto;
+import com.zerobase.StoreReservation.dto.UserInfo;
+import com.zerobase.StoreReservation.dto.UserLogin;
+import com.zerobase.StoreReservation.dto.UserSignUp;
 import com.zerobase.StoreReservation.exception.UserException;
 import com.zerobase.StoreReservation.service.UserService;
 import com.zerobase.StoreReservation.type.ErrorCode;
@@ -15,9 +17,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

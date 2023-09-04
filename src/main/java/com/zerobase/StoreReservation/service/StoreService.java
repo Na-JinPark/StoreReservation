@@ -9,7 +9,6 @@ import com.zerobase.StoreReservation.repository.StoreRepository;
 import com.zerobase.StoreReservation.type.Status;
 import com.zerobase.StoreReservation.type.UserType;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 

@@ -1,12 +1,9 @@
 package com.zerobase.StoreReservation.controller;
 
-import com.zerobase.StoreReservation.auth.JwtTokenUtil;
-import com.zerobase.StoreReservation.dto.*;
-import com.zerobase.StoreReservation.exception.UserException;
+import com.zerobase.StoreReservation.dto.StoreDto;
+import com.zerobase.StoreReservation.dto.StoreInfo;
+import com.zerobase.StoreReservation.dto.StoreRegist;
 import com.zerobase.StoreReservation.service.StoreService;
-import com.zerobase.StoreReservation.service.UserService;
-import com.zerobase.StoreReservation.type.ErrorCode;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

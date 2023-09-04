@@ -1,11 +1,6 @@
 package com.zerobase.StoreReservation.dto;
 
-import com.zerobase.StoreReservation.type.Status;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.time.LocalTime;
 
 @Builder
 public class StoreInfo {

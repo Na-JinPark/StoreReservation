@@ -8,8 +8,6 @@ import com.zerobase.StoreReservation.dto.ReservationDto;
 import com.zerobase.StoreReservation.dto.ReservationList;
 import com.zerobase.StoreReservation.exception.UserException;
 import com.zerobase.StoreReservation.repository.ReservationRepository;
-import com.zerobase.StoreReservation.repository.StoreRepository;
-import com.zerobase.StoreReservation.repository.UserRepository;
 import com.zerobase.StoreReservation.type.ErrorCode;
 import com.zerobase.StoreReservation.type.Status;
 import jakarta.servlet.http.HttpServletRequest;
