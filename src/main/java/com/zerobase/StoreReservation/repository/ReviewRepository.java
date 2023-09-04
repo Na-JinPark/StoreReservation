@@ -1,6 +1,5 @@
 package com.zerobase.StoreReservation.repository;
 
-import com.zerobase.StoreReservation.domain.Reservation;
 import com.zerobase.StoreReservation.domain.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 

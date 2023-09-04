@@ -1,12 +1,8 @@
 package com.zerobase.StoreReservation.dto;
 
-import com.zerobase.StoreReservation.domain.Review;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class ReviewRegist {
     @Getter

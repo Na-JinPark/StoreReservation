@@ -2,21 +2,16 @@ package com.zerobase.StoreReservation.service;
 
 import com.zerobase.StoreReservation.domain.Reservation;
 import com.zerobase.StoreReservation.domain.Review;
-import com.zerobase.StoreReservation.domain.User;
-import com.zerobase.StoreReservation.dto.ReservationDto;
 import com.zerobase.StoreReservation.dto.ReviewDto;
-import com.zerobase.StoreReservation.dto.ReviewRegist;
-import com.zerobase.StoreReservation.dto.UserDto;
 import com.zerobase.StoreReservation.exception.UserException;
 import com.zerobase.StoreReservation.repository.ReviewRepository;
-import com.zerobase.StoreReservation.type.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static com.zerobase.StoreReservation.type.ErrorCode.*;
+import static com.zerobase.StoreReservation.type.ErrorCode.UNREGISTERED_RESERVATION_REVIEW;
+import static com.zerobase.StoreReservation.type.ErrorCode.UNUSED_RESERVATION;
 
 @Service
 @RequiredArgsConstructor

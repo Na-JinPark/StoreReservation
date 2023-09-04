@@ -11,7 +11,6 @@ import com.zerobase.StoreReservation.repository.ReservationRepository;
 import com.zerobase.StoreReservation.repository.StoreRepository;
 import com.zerobase.StoreReservation.repository.UserRepository;
 import com.zerobase.StoreReservation.type.Status;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
 import static com.zerobase.StoreReservation.type.ErrorCode.*;
 

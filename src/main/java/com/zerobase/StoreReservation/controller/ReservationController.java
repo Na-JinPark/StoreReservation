@@ -1,6 +1,5 @@
 package com.zerobase.StoreReservation.controller;
 
-import com.zerobase.StoreReservation.dto.ReservationInfo;
 import com.zerobase.StoreReservation.dto.ReservationList;
 import com.zerobase.StoreReservation.dto.ReservationRegist;
 import com.zerobase.StoreReservation.dto.ReservationStatus;

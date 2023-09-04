@@ -1,8 +1,6 @@
 package com.zerobase.StoreReservation.controller;
 
-import com.zerobase.StoreReservation.domain.Review;
 import com.zerobase.StoreReservation.dto.ReviewRegist;
-import com.zerobase.StoreReservation.dto.StoreRegist;
 import com.zerobase.StoreReservation.service.ReviewService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
