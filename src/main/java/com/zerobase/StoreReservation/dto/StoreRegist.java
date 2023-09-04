@@ -27,6 +27,7 @@ public class StoreRegist {
         private Status breakTimeStatus = Status.N;
         private LocalTime startBreakTime;
         private LocalTime endBreakTime;
+        @NotNull
         private LocalTime timeSet;
     }
 

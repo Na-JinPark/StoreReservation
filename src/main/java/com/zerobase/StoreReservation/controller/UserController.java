@@ -1,26 +1,34 @@
 package com.zerobase.StoreReservation.controller;
 
 import com.zerobase.StoreReservation.auth.JwtTokenUtil;
-import com.zerobase.StoreReservation.dto.UserLogin;
-import com.zerobase.StoreReservation.dto.UserSignUp;
+import com.zerobase.StoreReservation.domain.User;
+import com.zerobase.StoreReservation.dto.*;
+import com.zerobase.StoreReservation.exception.UserException;
 import com.zerobase.StoreReservation.service.UserService;
+import com.zerobase.StoreReservation.type.ErrorCode;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
+    /*
+    * 회원가입 api
+    * 파라미터 : 사용자id, 비밀번호, 사용자 타입(일반, 파트너), 닉네임, 전화번호
+    * 성공응답 : 사용자아이디, 닉네임, 전화번호
+    */
     @PostMapping("/user")
     public UserSignUp.Response userSignUp(
             @RequestBody @Valid UserSignUp.Request request
@@ -36,12 +44,16 @@ public class UserController {
         );
     }
 
+    /*
+     * 로그인 api
+     * 파라미터 : 사용자아이디, 비밀번호
+     * 성공시 main.html로 이동
+     */
     @PostMapping("/user/login")
     public ResponseEntity<String> userLogin(
             @ModelAttribute @Valid UserLogin request, HttpServletResponse response
     ) {
         UserLogin user =  UserLogin.from(userService.userLogin(request.getUserId(), request.getUserPassword()));
-
 
         String jwtToken = JwtTokenUtil.createToken(user.getUserId());
 
@@ -56,5 +68,24 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/main");
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
+    }
+
+    /*
+     * 사용자 정보 조회
+     * 발급된 jwtToken에서 userId를 가져와 사용자 정보 조회
+     * 정책 : jwtToken이 없을 경우 실패
+     */
+    @GetMapping("/user/Info")
+    public UserInfo getUserInfo(HttpServletRequest httpRequest){
+
+        String jwtToken = JwtTokenUtil.resolveToken(httpRequest);
+
+        if(jwtToken == null) new UserException(ErrorCode.REQUIRED_LOGIN);
+
+        String userId = JwtTokenUtil.getLoginId(jwtToken);
+
+        UserInfo userInfo = UserInfo.from(UserDto.fromEntity(userService.checkUserId(userId)));
+
+        return userInfo;
     }
 }

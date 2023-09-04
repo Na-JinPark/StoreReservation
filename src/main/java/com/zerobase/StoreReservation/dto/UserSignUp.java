@@ -28,14 +28,12 @@ public class UserSignUp {
     public static class Response{
         private String userId;
         private String nickName;
-        private UserType userType;
         private String phoneNumber;
 
         public static Response from(UserDto userDto){
             return Response.builder()
                     .userId(userDto.getUserId())
                     .nickName(userDto.getNickName())
-                    .userType(userDto.getUserType())
                     .phoneNumber(userDto.getPhoneNumber())
                     .build();
         }

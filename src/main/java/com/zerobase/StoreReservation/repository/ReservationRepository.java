@@ -32,5 +32,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
             nativeQuery = true)
     List<ReservationList> getReservationList(@Param("storeId") Integer storeId, @Param("reservationDate") LocalDate reservationDate);
 
-    Optional<Reservation> findByReservationDateAndReservationTimeAndUser_UserIdAndStore_StoreId(LocalDate reservationDate, LocalTime reservationTime, String userId, Integer storeId);
+    Optional<Reservation> findByReservationDateAndReservationTimeAndStore_StoreId(LocalDate reservationDate, LocalTime reservationTime, Integer storeId);
+
 }

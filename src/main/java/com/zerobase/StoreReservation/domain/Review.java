@@ -1,6 +1,8 @@
 package com.zerobase.StoreReservation.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -25,6 +27,8 @@ public class Review {
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
+    @Min(value = 0, message = "별점은 0 이상이어야 합니다.")
+    @Max(value = 5, message = "별점은 5 이하이어야 합니다.")
     private Integer grade;
     private String remark;
 

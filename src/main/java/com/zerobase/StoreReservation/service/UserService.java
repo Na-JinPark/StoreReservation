@@ -17,7 +17,11 @@ import static com.zerobase.StoreReservation.type.ErrorCode.*;
 public class UserService {
     private final UserRepository userRepository;
 
-    //회원 가입
+    /*
+     * 회원가입
+     * 파라미터 : 사용자id, 비밀번호, 사용자 타입(일반, 파트너), 닉네임, 전화번호
+     * 정책 : 사용자 아이디, 닉네임 중복 시 실패 응답
+     */
     public UserDto userSignUp(String userId, String userPassword, UserType userType, String nickName, String phoneNumber){
 
         validationUserSignUp(userId, nickName);
@@ -45,10 +49,14 @@ public class UserService {
         }
     }
 
-    //로그인
+    /*
+     * 로그인
+     * 파라미터 : 사용자아이디, 비밀번호
+     * 정책 : 등록되지 않은 사용자 아이디일 경우, 아이디는 존재하나 비밀번호가 다를 경우 실패
+     */
     public UserDto userLogin(String userId, String userPassword){
 
-        User user = checkUserID(userId);
+        User user = checkUserId(userId);
 
         if(!user.getUserPassword().equals(userPassword))
             new UserException(UNREGISTERED_PASSWORD);
@@ -56,10 +64,14 @@ public class UserService {
        return UserDto.fromEntity(user);
     }
 
-    public User checkUserID(String userId){
+    /*
+     * 사용자 아이디 존재여부 확인
+     */
+    public User checkUserId(String userId){
         User loginUser =  userRepository.findById(userId)
                 .orElseThrow(()->new UserException(UNREGISTERED_ID));
         return loginUser;
 
     }
+
 }
